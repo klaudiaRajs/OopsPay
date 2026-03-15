@@ -1,4 +1,7 @@
+using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OopsPay;
 using Products;
 using Transactions;
 using Users;
@@ -7,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<CreateTransaction>();
+builder.Services.AddScoped<TransactionRepository>(); 
 
 var oopsPayDbCs = builder.Configuration.GetConnectionString("OopsPayDb");
 builder.Services.AddDbContext<TransactionOutboxDbContext>(options =>
@@ -23,13 +28,20 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "OopsPay API V1");
+        c.RoutePrefix = String.Empty;
+    });
 }
 
 app.UseHttpsRedirection();
-app.MapGet("/hello", () =>
+app.MapPost("/transaction", async (
+        [FromBody] CreateTransactionRequest createTransactionRequest,
+        [FromServices] CreateTransaction createTransaction) =>
     {
-        return "Hello World!";
+        var resposne = await createTransaction.Create(createTransactionRequest);
+        return Results.Ok(resposne);
     })
-    .WithName("Hello"); 
-app.Run();
+    .WithName("CreateTransaction");
+await app.RunAsync();
