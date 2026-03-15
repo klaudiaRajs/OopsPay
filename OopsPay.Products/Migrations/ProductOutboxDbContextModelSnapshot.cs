@@ -22,15 +22,14 @@ namespace Products.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Products.Models.GetProductDetails", b =>
+            modelBuilder.Entity("Contracts.GetProductDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CorrelationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ErrorCount")
                         .HasColumnType("int");
@@ -44,7 +43,7 @@ namespace Products.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GetProductDetails");
+                    b.ToTable("GetProductDetails", "ProductOutbox");
                 });
 #pragma warning restore 612, 618
         }

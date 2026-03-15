@@ -22,15 +22,14 @@ namespace Users.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Users.Models.GetUserDetails", b =>
+            modelBuilder.Entity("Contracts.GetUserDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CorrelationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ErrorCount")
                         .HasColumnType("int");
@@ -44,7 +43,7 @@ namespace Users.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GetUserDetails");
+                    b.ToTable("GetUserDetails", "UserOutbox");
                 });
 #pragma warning restore 612, 618
         }

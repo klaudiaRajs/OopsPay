@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Users.Models;
+﻿using Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Users;
 

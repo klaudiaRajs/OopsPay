@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Transactions;
+using Products;
 
 #nullable disable
 
-namespace Transactions.Migrations
+namespace Products.Migrations
 {
-    [DbContext(typeof(TransactionOutboxDbContext))]
-    [Migration("20260315120604_DbWithNamingSystem")]
-    partial class DbWithNamingSystem
+    [DbContext(typeof(ProductOutboxDbContext))]
+    [Migration("20260315183237_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,15 +25,14 @@ namespace Transactions.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Transactions.Models.CreateTransactions", b =>
+            modelBuilder.Entity("Contracts.GetProductDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CorrelationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("ErrorCount")
                         .HasColumnType("int");
@@ -47,32 +46,7 @@ namespace Transactions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CreateTransactions");
-                });
-
-            modelBuilder.Entity("Transactions.Models.ReceiveRequiredDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CorrelationId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ErrorCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Payload")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReceiveRequiredDetails");
+                    b.ToTable("GetProductDetails", "ProductOutbox");
                 });
 #pragma warning restore 612, 618
         }

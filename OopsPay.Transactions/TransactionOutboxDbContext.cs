@@ -7,4 +7,6 @@ public class TransactionOutboxDbContext(DbContextOptions<TransactionOutboxDbCont
 {
     public DbSet<CreateTransactions> CreateTransactions { get; set; }
     public DbSet<ReceiveRequiredDetails> ReceiveRequiredDetails { get; set; }
+    public DbSet<GetUserDetails> UserOutboxItems { get; set; }
+    public DbSet<GetProductDetails> ProductOutboxItems { get; set; }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Products.Models;
+﻿using Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Products;
 

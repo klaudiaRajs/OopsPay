@@ -13,13 +13,14 @@ namespace Users.Migrations
         {
             migrationBuilder.EnsureSchema(
                 name: "UserOutbox");
+
             migrationBuilder.CreateTable(
                 name: "GetUserDetails",
                 schema: "UserOutbox",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CorrelationId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Payload = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProcessedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ErrorCount = table.Column<int>(type: "int", nullable: false)
@@ -34,9 +35,8 @@ namespace Users.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GetUserDetails", 
-                schema: "UserOutbox"
-                );
+                name: "GetUserDetails",
+                schema: "UserOutbox");
         }
     }
 }
