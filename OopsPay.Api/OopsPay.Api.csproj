@@ -18,7 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\OopsPay.Products\OopsPay.Products.csproj" />
       <ProjectReference Include="..\OopsPay.Transactions\OopsPay.Transactions.csproj" />
+      <ProjectReference Include="..\OopsPay.Users\OopsPay.Users.csproj" />
     </ItemGroup>
 
 </Project>
