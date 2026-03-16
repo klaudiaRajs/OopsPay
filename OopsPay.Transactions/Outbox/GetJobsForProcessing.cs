@@ -1,5 +1,4 @@
-﻿using Contracts;
-using Transactions.Outbox;
+﻿using Transactions.Outbox;
 
 namespace Transactions;
 

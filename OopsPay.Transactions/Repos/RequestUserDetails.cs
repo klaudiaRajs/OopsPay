@@ -1,17 +1,17 @@
 ﻿using System.Text.Json;
-using Contracts;
+using Contracts.Users;
 
 namespace Transactions.Outbox;
 
 public class RequestUserDetails(TransactionOutboxDbContext dbContext)
 {
-    public bool Request(CreateTransactionRequest request, Guid correlationId)
+    public bool Request(GetUserDetailsRequest request, Guid correlationId)
     {        
         var userDetailsRequest = new GetUserDetails()
         {
             Id = Guid.NewGuid(),
             CorrelationId = correlationId,
-            Payload = System.Text.Json.JsonSerializer.Serialize(new { UserId = request.UserId })
+            Payload = JsonSerializer.Serialize(request)
         };
 
         dbContext.UserOutboxItems.Add(userDetailsRequest);

@@ -1,4 +1,6 @@
 ﻿using Contracts;
+using Contracts.Transactions;
+using Contracts.Users;
 using Transactions.Outbox;
 
 namespace Transactions;
@@ -55,13 +57,7 @@ public class RequestDataForTransaction(
     {
         if (transaction == null) throw new ArgumentNullException(nameof(transaction));
 
-        var transactionRequest = new CreateTransactionRequest(transaction.Payload);
-        if (string.IsNullOrEmpty(transactionRequest.UserId.ToString()))
-        {
-            Console.WriteLine("UserId is null or empty. Cannot send request.");
-            return false;
-        }
-
+        var transactionRequest = GetUserDetailsRequest.FromPayload(transaction.Payload);
         var success = requestUserDetails.Request(transactionRequest, transaction.CorrelationId);
         Console.WriteLine($"Request for user details sent to outbox with result: {success}");
         return success;

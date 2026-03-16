@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Quartz;
 using Transactions.Outbox;
 
 namespace Transactions;

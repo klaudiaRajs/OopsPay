@@ -1,4 +1,6 @@
 ﻿using Contracts;
+using Contracts.Transactions;
+using Contracts.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace Transactions;

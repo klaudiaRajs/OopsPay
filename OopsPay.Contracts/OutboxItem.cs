@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Contracts;
+﻿namespace Contracts;
 
 public class OutboxItem
 {

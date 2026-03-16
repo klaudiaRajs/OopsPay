@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Contracts;
+using Contracts.Transactions;
 using Transactions;
 
 namespace OopsPay;

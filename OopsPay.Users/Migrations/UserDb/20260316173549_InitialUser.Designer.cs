@@ -9,11 +9,11 @@ using Users;
 
 #nullable disable
 
-namespace Users.Migrations
+namespace Users.Migrations.UserDb
 {
-    [DbContext(typeof(OutboxDbContexts))]
-    [Migration("20260315183213_Initial")]
-    partial class Initial
+    [DbContext(typeof(UserDbContext))]
+    [Migration("20260316173549_InitialUser")]
+    partial class InitialUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,28 +25,31 @@ namespace Users.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Contracts.GetUserDetails", b =>
+            modelBuilder.Entity("Contracts.Users.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CorrelationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ErrorCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Payload")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("GetUserDetails", "UserOutbox");
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users", "User");
                 });
 #pragma warning restore 612, 618
         }
