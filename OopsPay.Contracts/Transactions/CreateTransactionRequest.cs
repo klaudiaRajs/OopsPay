@@ -5,7 +5,7 @@ namespace Contracts;
 
 public class CreateTransactionRequest
 {
-    public List<int> ProductIds { get; set; }
+    public List<string> ProductIds { get; set; }
     public Guid UserId { get; set; }
 
     public CreateTransactionRequest()
@@ -15,7 +15,7 @@ public class CreateTransactionRequest
     public CreateTransactionRequest(string payload)
     {
         var deserializedPayload = JsonSerializer.Deserialize<CreateTransactionRequest>(payload);
-        ProductIds = deserializedPayload?.ProductIds ?? new List<int>();
+        ProductIds = deserializedPayload?.ProductIds ?? new List<string>();
         UserId = deserializedPayload?.UserId ?? Guid.Empty; 
     }
 }

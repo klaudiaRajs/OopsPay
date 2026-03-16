@@ -3,7 +3,7 @@ using Users.Repos;
 
 namespace Users;
 
-public class GetUserDetailsService(
+public class GetUserDetailsFactory(
     GetUserDetailsRepo getUserDetailsRepo,
     ReturnResponseToTransactionRepo returnResponseToTransactionRepo)
 {

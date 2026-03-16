@@ -2,7 +2,7 @@
 
 namespace Users.Outbox;
 
-public class GetUnprocessedMessages(OutboxDbContexts dbContext)
+public class GetUnprocessedMessagesRepo(OutboxDbContexts dbContext)
 {
     public IEnumerable<GetUserDetails> Get()
     {

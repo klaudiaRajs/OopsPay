@@ -1,9 +1,9 @@
-﻿namespace Users.Outbox;
+﻿namespace Products.Outbox;
 
 public class GetJobsForProcessing(
     GetUnprocessedMessagesRepo getUnprocessedMessagesRepo,
     MarkMessageAsProcessed markMessageAsProcessed, 
-    GetUserDetailsFactory getUserDetailsFactory) 
+    GetProductInformationFactory getProductDetailsFactory) 
 {
     public bool Get(CancellationToken cancellationToken)
     {
@@ -12,7 +12,7 @@ public class GetJobsForProcessing(
             var unproccessedRequests = getUnprocessedMessagesRepo.Get();
             foreach (var request in unproccessedRequests)
             {
-                var success = getUserDetailsFactory.Get(request);
+                var success = getProductDetailsFactory.Get(request);
                 if (success)
                 {
                     request.ProcessedOn = DateTime.UtcNow;

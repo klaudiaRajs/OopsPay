@@ -18,9 +18,9 @@ public static class InjectDependencies
             options.UseSqlServer(connectionString));
         services.AddHostedService<GetMessagesOnLoop>(); 
         services.AddScoped<MarkMessageAsProcessed>();
-        services.AddScoped<GetUnprocessedMessages>();
+        services.AddScoped<GetUnprocessedMessagesRepo>();
         services.AddScoped<GetJobsForProcessing>();
-        services.AddScoped<GetUserDetailsService>();
+        services.AddScoped<GetUserDetailsFactory>();
         services.AddScoped<GetUserDetailsRepo>();
         services.AddScoped<ReturnResponseToTransactionRepo>(); 
         return services;

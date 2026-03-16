@@ -15,12 +15,5 @@ public class GetUserDetailsRequest
     {
         return JsonSerializer.Deserialize<GetUserDetailsRequest>(payload)
                ?? new GetUserDetailsRequest();
-        /*var deserializedPayload = JsonSerializer.Deserialize<GetUserDetailsRequest>(payload);
-        UserId = deserializedPayload?.UserId;
-        CorrelationId = deserializedPayload?.CorrelationId ?? Guid.Empty;
-        Name = deserializedPayload?.Name;
-        Surname = deserializedPayload?.Surname;
-        Email = deserializedPayload?.Email;
-        Address = deserializedPayload?.Address;*/
     }
 }
