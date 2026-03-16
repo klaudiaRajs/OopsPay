@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Contracts;
+namespace Contracts.Transactions;
 
 [Table("CreateTransactions", Schema = "TransactionOutbox")]
 public class CreateTransactions : OutboxItem{}
+[Table("ReceiveRequiredDetails", Schema = "TransactionOutbox")]
 public class ReceiveRequiredDetails : OutboxItem{}

@@ -8,10 +8,10 @@ using Users;
 
 #nullable disable
 
-namespace Users.Migrations
+namespace Users.Migrations.UserDb
 {
-    [DbContext(typeof(OutboxDbContexts))]
-    partial class UserOutboxDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(UserDbContext))]
+    partial class UserDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,28 +22,31 @@ namespace Users.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Contracts.GetUserDetails", b =>
+            modelBuilder.Entity("Contracts.Users.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("CorrelationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ErrorCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Payload")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("GetUserDetails", "UserOutbox");
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users", "User");
                 });
 #pragma warning restore 612, 618
         }

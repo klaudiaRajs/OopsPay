@@ -20,7 +20,11 @@ builder.Services.AddTransactionDependencies(oopsPayDbCs);
 builder.Services.AddDbContext<ProductOutboxDbContext>(options =>
     options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Products")));
 builder.Services.AddProductDependencies(oopsPayDbCs);
-builder.Services.AddDbContext<UserOutboxDbContext>(options =>
+builder.Services.AddDbContext<OutboxDbContexts>(options =>
+    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Users")));
+builder.Services.AddDbContext<TransactionOutboxFromUserDbContext>(options =>
+    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Users")));
+builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Users")));
 builder.Services.AddUserDependencies(oopsPayDbCs);
 
