@@ -1,4 +1,6 @@
-﻿namespace Products.Outbox;
+﻿using Products.Repos;
+
+namespace Products.Outbox;
 
 public class GetJobsForProcessing(
     GetUnprocessedMessagesRepo getUnprocessedMessagesRepo,

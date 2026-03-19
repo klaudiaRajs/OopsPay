@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Users;
+using Transactions;
 
 #nullable disable
 
-namespace Users.Migrations
+namespace Transactions.Migrations.TransactionDb
 {
-    [DbContext(typeof(UserOutboxDbContext))]
-    partial class UserOutboxDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(TransactionDbContext))]
+    partial class TransactionDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace Users.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Contracts.GetUserDetails", b =>
+            modelBuilder.Entity("Contracts.Transactions.Transaction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,19 +31,17 @@ namespace Users.Migrations
                     b.Property<Guid>("CorrelationId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ErrorCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Payload")
+                    b.Property<string>("Products")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("UserSnapshot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("GetUserDetails", "UserOutbox");
+                    b.ToTable("Transactions", "Transaction");
                 });
 #pragma warning restore 612, 618
         }

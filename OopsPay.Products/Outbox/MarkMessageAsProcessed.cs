@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Products;
 
 namespace Products.Outbox;
 

@@ -1,35 +1,40 @@
-﻿using Transactions.Outbox;
+﻿using Contracts;
+using Contracts.Transactions;
+using Transactions.Repos.Outbox;
 
-namespace Transactions;
+namespace Transactions.Outbox;
 
 public class GetJobsForProcessing(
-    GetUnprocessedMessages getJobsForProcessing,
+    GetUnprocessedMessages getUnprocessedMessages,
     MarkMessageAsProcessed markMessageAsProcessed,
-    RequestDataForTransaction requestDataForTransaction)
+    CreateTransactionService createTransactionService
+     )
 {
-    public async Task Get(CancellationToken cancellationToken)
+    public void Get(CancellationToken cancellationToken)
     {
         try
         {
-            var unprocessedTransactions = getJobsForProcessing.Get();
-            foreach (var transaction in unprocessedTransactions)
+            var unprocessedTransactions = getUnprocessedMessages.Get();
+            foreach (var messageGroup in unprocessedTransactions)
             {
-                var success = requestDataForTransaction.Request(transaction);
-                if (success)
-                {
-                    transaction.ProcessedOn = DateTime.UtcNow;
-                }
-                else
-                {
-                    transaction.ErrorCount += 1;
-                }
-
-                markMessageAsProcessed.Mark(transaction);
+                messageGroup.Value.ToList().ForEach(message => HandleMessageBasedOnType(message, messageGroup.Key));
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error processing transactions: {ex.Message}");
+        }
+    }
+
+    private bool HandleMessageBasedOnType(OutboxItem message, string messageType)
+    {
+        switch(messageType)
+        {
+            case nameof(CreateTransactions):
+                return createTransactionService.Create(message); 
+            default:
+                Console.WriteLine($"Unknown message type: {messageType}. Skipping.");
+                return false; 
         }
     }
 }

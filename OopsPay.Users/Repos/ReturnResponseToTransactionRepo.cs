@@ -8,13 +8,13 @@ public class ReturnResponseToTransactionRepo(TransactionOutboxFromUserDbContext 
 {
     public bool Return(GetUserDetails userDetails, User user)
     {
-        var userDetailsResponse = new ReceiveRequiredDetails
+        var userDetailsResponse = new ReceiveUserDetails()
         {
             Id = new Guid(), 
             CorrelationId = userDetails.CorrelationId, 
             Payload = JsonSerializer.Serialize<User>(user)
         };
-        context.ReceiveRequiredDetails.Add(userDetailsResponse);
+        context.ReceiveUserDetails.Add(userDetailsResponse);
         return context.SaveChanges() > 0;
     }
 }

@@ -10,7 +10,7 @@ public static class InjectDependencies
     public static IServiceCollection AddUserDependencies(
         this IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<OutboxDbContexts>(options =>
+        services.AddDbContext<UserOutboxDbContext>(options =>
             options.UseSqlServer(connectionString));
         services.AddDbContext<TransactionOutboxFromUserDbContext>(options =>
             options.UseSqlServer(connectionString));

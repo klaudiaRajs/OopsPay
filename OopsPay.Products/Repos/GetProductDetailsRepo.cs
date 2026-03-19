@@ -1,5 +1,4 @@
-﻿using Contracts;
-using Contracts.Products;
+﻿using Contracts.Products;
 
 namespace Products.Repos;
 

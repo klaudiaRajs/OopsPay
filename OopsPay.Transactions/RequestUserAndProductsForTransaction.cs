@@ -1,15 +1,15 @@
 ﻿using Contracts;
 using Contracts.Transactions;
 using Contracts.Users;
-using Transactions.Outbox;
+using Transactions.Repos.Outbox;
 
 namespace Transactions;
 
-public class RequestDataForTransaction(
+public class RequestUserAndProductsForTransaction(
     RequestUserDetails requestUserDetails,
     RequestProductDetails requestProductDetails)
 {
-    public bool Request(CreateTransactions transaction)
+    public bool Request(OutboxItem transaction)
     {
         try
         {
@@ -37,7 +37,7 @@ public class RequestDataForTransaction(
     }
 
 
-    private bool RequestProductDetails(CreateTransactions transaction)
+    private bool RequestProductDetails(OutboxItem transaction)
     {
         if (transaction == null) throw new ArgumentNullException(nameof(transaction));
 
@@ -49,17 +49,15 @@ public class RequestDataForTransaction(
         }
 
         var success = requestProductDetails.Request(transactionRequest, transaction.CorrelationId);
-        Console.WriteLine($"Request for product details sent to outbox with result: {success}");
         return success;
     }
 
-    private bool RequestUserDetails(CreateTransactions transaction)
+    private bool RequestUserDetails(OutboxItem transaction)
     {
         if (transaction == null) throw new ArgumentNullException(nameof(transaction));
 
         var transactionRequest = GetUserDetailsRequest.FromPayload(transaction.Payload);
         var success = requestUserDetails.Request(transactionRequest, transaction.CorrelationId);
-        Console.WriteLine($"Request for user details sent to outbox with result: {success}");
         return success;
     }
 }

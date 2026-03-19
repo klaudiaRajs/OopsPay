@@ -1,4 +1,6 @@
-﻿namespace Users.Outbox;
+﻿using Users.Repos;
+
+namespace Users.Outbox;
 
 public class GetJobsForProcessing(
     GetUnprocessedMessagesRepo getUnprocessedMessagesRepo,

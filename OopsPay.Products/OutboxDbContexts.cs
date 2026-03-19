@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Products;
 using Contracts.Transactions;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,5 +11,5 @@ public class ProductOutboxDbContext(DbContextOptions<ProductOutboxDbContext> opt
 
 public class TransactionOutboxFromProductDbContext(DbContextOptions<TransactionOutboxFromProductDbContext> options): DbContext(options)
 {
-    public DbSet<ReceiveRequiredDetails> ReceiveRequiredDetails { get; set; }
+    public DbSet<ReceiveProductDetails> ReceiveProductDetails { get; set; }
 }

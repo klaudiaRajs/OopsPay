@@ -11,7 +11,7 @@ using Users;
 
 namespace Users.Migrations
 {
-    [DbContext(typeof(OutboxDbContexts))]
+    [DbContext(typeof(UserOutboxDbContext))]
     [Migration("20260315183213_Initial")]
     partial class Initial
     {

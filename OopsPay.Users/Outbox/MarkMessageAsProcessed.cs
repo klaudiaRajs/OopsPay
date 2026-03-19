@@ -2,7 +2,7 @@
 
 namespace Users.Outbox;
 
-public class MarkMessageAsProcessed(OutboxDbContexts dbContext)
+public class MarkMessageAsProcessed(UserOutboxDbContext dbContext)
 {
     public void Mark(GetUserDetails userDetails)
     {

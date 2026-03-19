@@ -1,7 +1,7 @@
 ﻿
 using System.Text.Json;
 
-namespace Contracts;
+namespace Contracts.Transactions;
 
 public class CreateTransactionRequest
 {

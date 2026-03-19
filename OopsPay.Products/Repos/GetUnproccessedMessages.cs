@@ -1,6 +1,6 @@
-﻿using Contracts;
+﻿using Contracts.Products;
 
-namespace Products.Outbox;
+namespace Products.Repos;
 
 public class GetUnprocessedMessagesRepo(ProductOutboxDbContext dbContext)
 {

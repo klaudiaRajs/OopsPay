@@ -1,8 +1,8 @@
 ﻿using Contracts.Users;
 
-namespace Users.Outbox;
+namespace Users.Repos;
 
-public class GetUnprocessedMessagesRepo(OutboxDbContexts dbContext)
+public class GetUnprocessedMessagesRepo(UserOutboxDbContext dbContext)
 {
     public IEnumerable<GetUserDetails> Get()
     {

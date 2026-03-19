@@ -12,8 +12,8 @@ using Transactions;
 namespace Transactions.Migrations
 {
     [DbContext(typeof(TransactionOutboxDbContext))]
-    [Migration("20260316161108_AddedSchemaForReceivedRequiredDetails")]
-    partial class AddedSchemaForReceivedRequiredDetails
+    [Migration("20260317220500_DividedReceivedMessagesPerDetails")]
+    partial class DividedReceivedMessagesPerDetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Transactions.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Contracts.CreateTransactions", b =>
+            modelBuilder.Entity("Contracts.Transactions.CreateTransactions", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Transactions.Migrations
                     b.ToTable("CreateTransactions", "TransactionOutbox");
                 });
 
-            modelBuilder.Entity("Contracts.GetProductDetails", b =>
+            modelBuilder.Entity("Contracts.Transactions.ReceiveProductDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,10 +70,10 @@ namespace Transactions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GetProductDetails", "ProductOutbox");
+                    b.ToTable("ReceiveProductDetails", "TransactionOutbox");
                 });
 
-            modelBuilder.Entity("Contracts.ReceiveRequiredDetails", b =>
+            modelBuilder.Entity("Contracts.Transactions.ReceiveUserDetails", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,31 +94,7 @@ namespace Transactions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ReceiveRequiredDetails", "TransactionOutbox");
-                });
-
-            modelBuilder.Entity("Contracts.Users.GetUserDetails", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CorrelationId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ErrorCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Payload")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ProcessedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GetUserDetails", "UserOutbox");
+                    b.ToTable("ReceiveUserDetails", "TransactionOutbox");
                 });
 #pragma warning restore 612, 618
         }

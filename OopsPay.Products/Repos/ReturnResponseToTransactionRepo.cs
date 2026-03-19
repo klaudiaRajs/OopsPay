@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Contracts;
 using Contracts.Products;
 using Contracts.Transactions;
 
@@ -9,13 +8,13 @@ public class ReturnResponseToTransactionRepo(TransactionOutboxFromProductDbConte
 {
     public bool Return(GetProductDetails productDetails, List<Product> products)
     {
-        var productDetailsResponse = new ReceiveRequiredDetails
+        var productDetailsResponse = new ReceiveProductDetails()
         {
             Id = new Guid(), 
             CorrelationId = productDetails.CorrelationId, 
             Payload = JsonSerializer.Serialize<List<Product>>(products)
         };
-        context.ReceiveRequiredDetails.Add(productDetailsResponse);
+        context.ReceiveProductDetails.Add(productDetailsResponse);
         return context.SaveChanges() > 0;
     }
 }

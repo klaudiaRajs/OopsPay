@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-namespace Transactions;
+
+namespace Transactions.Outbox;
 
 public class GetMessagesOnLoop(IServiceProvider serviceProvider) : BackgroundService
 {
@@ -13,15 +14,13 @@ public class GetMessagesOnLoop(IServiceProvider serviceProvider) : BackgroundSer
             {
                 using var scope = serviceProvider.CreateScope();
                 var processor = scope.ServiceProvider.GetRequiredService<GetJobsForProcessing>();
-                await processor.Get(stoppingToken);
+                processor.Get(stoppingToken);
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Outbox error: {ex}");
             }
-
         }
-
         Console.WriteLine("Outbox worker stopped");
     }
 }

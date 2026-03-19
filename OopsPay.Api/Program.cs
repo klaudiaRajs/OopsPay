@@ -1,10 +1,6 @@
-using Contracts;
+using Contracts.Transactions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using OopsPay;
-using Products;
-using Transactions;
-using Users;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
@@ -14,23 +10,7 @@ builder.Services.AddScoped<CreateTransaction>();
 builder.Services.AddScoped<TransactionRepository>(); 
 
 var oopsPayDbCs = builder.Configuration.GetConnectionString("OopsPayDb");
-builder.Services.AddDbContext<TransactionOutboxDbContext>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Transactions")));
-builder.Services.AddTransactionDependencies(oopsPayDbCs);
-builder.Services.AddDbContext<ProductOutboxDbContext>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Products")));
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Products")));
-builder.Services.AddDbContext<TransactionOutboxFromProductDbContext>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Products")));
-builder.Services.AddProductDependencies(oopsPayDbCs);
-builder.Services.AddDbContext<OutboxDbContexts>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Users")));
-builder.Services.AddDbContext<TransactionOutboxFromUserDbContext>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Users")));
-builder.Services.AddDbContext<UserDbContext>(options =>
-    options.UseSqlServer(oopsPayDbCs, b => b.MigrationsAssembly("OopsPay.Users")));
-builder.Services.AddUserDependencies(oopsPayDbCs);
+builder = Bootstrap.AddDbContexts(builder, oopsPayDbCs);
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
